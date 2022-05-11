@@ -11,7 +11,7 @@ fun main(){
     // (1)创建可变列表 mutableListOf
     val arrayList = mutableListOf<String>()
     arrayList.add("a")
-    val arrayList1 = mutableListOf<String>("a","b")
+
     // (2)不可变列表 listOf
     val arrayInt = listOf<Int>(1, 2, 3)
     println(arrayInt)
