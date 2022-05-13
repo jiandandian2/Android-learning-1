@@ -17,8 +17,10 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
 
     // 1.重写这个函数
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        // 重写三个函数
         super.onViewCreated(view, savedInstanceState)
 
+        // 垂直滑动布局
         recycler_view.layoutManager =
             LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
 
@@ -27,6 +29,8 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
 
     inner class MyAdapter : RecyclerView.Adapter<MyViewHolder>() {
         override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MyViewHolder {
+
+            // 绑定item_view_liner_horizontal页面
             val itemView = LayoutInflater.from(context)
                 .inflate(R.layout.item_view_liner_vertical, parent, false)
             return  MyViewHolder(itemView)
