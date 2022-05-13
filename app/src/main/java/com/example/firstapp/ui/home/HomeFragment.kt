@@ -1,42 +1,51 @@
 package com.example.firstapp.ui.home
 
+
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.TextView
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.ViewModelProvider
-import com.example.firstapp.databinding.FragmentHomeBinding
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
+import com.example.firstapp.R
+import kotlinx.android.synthetic.main.fragment_home.*
+import kotlinx.android.synthetic.main.item_view_liner_vertical.view.*
 
-class HomeFragment : Fragment() {
 
-    private var _binding: FragmentHomeBinding? = null
+class HomeFragment : Fragment(R.layout.fragment_home) {
 
-    // This property is only valid between onCreateView and
-    // onDestroyView.
-    private val binding get() = _binding!!
+    // 1.重写这个函数
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
 
-    override fun onCreateView(
-            inflater: LayoutInflater,
-            container: ViewGroup?,
-            savedInstanceState: Bundle?
-    ): View {
-        val homeViewModel =
-                ViewModelProvider(this).get(HomeViewModel::class.java)
+        recycler_view.layoutManager =
+            LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
 
-        _binding = FragmentHomeBinding.inflate(inflater, container, false)
-        val root: View = binding.root
+        recycler_view.adapter = MyAdapter()
+    }
 
-        val textView: TextView = binding.textHome
-        homeViewModel.text.observe(viewLifecycleOwner) {
-            textView.text = it
+    inner class MyAdapter : RecyclerView.Adapter<MyViewHolder>() {
+        override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MyViewHolder {
+            val itemView = LayoutInflater.from(context)
+                .inflate(R.layout.item_view_liner_vertical, parent, false)
+            return  MyViewHolder(itemView)
         }
-        return root
+
+        override fun onBindViewHolder(holder: MyViewHolder, position: Int) {
+            holder.itemView.item_image.setImageResource(R.drawable.ks)
+
+            holder.itemView.item_title.text = "[${position}] 快手App"
+            holder.itemView.item_message.text = "快手是一款国民级短视频App。在快手,了解真实的世界,认识有趣的人,也可以记录真实而有趣的自己。"
+        }
+
+        override fun getItemCount(): Int {
+            return 20
+        }
     }
 
-    override fun onDestroyView() {
-        super.onDestroyView()
-        _binding = null
+    class MyViewHolder(view: View) : RecyclerView.ViewHolder(view){
+
     }
+
 }
